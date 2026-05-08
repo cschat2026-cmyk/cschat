@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Freelance Rate Calculator | Margin Atlas</title>
+    <meta
+      name="description"
+      content="Estimate an hourly freelance rate based on income goals, business expenses, and billable hours with this free rate calculator."
+    />
+    <link
+      rel="canonical"
+      href="https://example.com/calculators/freelance-rate-calculator.html"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body data-calculator="freelance">
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="../index.html">
+          <span class="brand-mark">M</span>
+          <span class="brand-copy">
+            <strong>Margin Atlas</strong>
+            <span>Seller and creator calculators</span>
+          </span>
+        </a>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../index.html">Home</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy</a>
+        </nav>
+      </header>
+
+      <main class="calculator-page">
+        <section class="page-hero compact">
+          <p class="eyebrow">Freelance pricing</p>
+          <h1>Freelance Rate Calculator</h1>
+          <p>
+            Estimate an hourly rate based on your annual income goal, business
+            overhead, taxes, and the realistic number of billable hours you can sell.
+          </p>
+        </section>
+
+        <section class="calculator-layout">
+          <article class="calculator-card">
+            <h2>Enter your numbers</h2>
+            <form class="calculator-form" id="freelance-form">
+              <label>
+                Annual income goal
+                <input type="number" id="freelance-income" min="0" step="1" value="90000" />
+              </label>
+              <label>
+                Annual business expenses
+                <input type="number" id="freelance-expenses" min="0" step="1" value="12000" />
+              </label>
+              <label>
+                Tax buffer (%)
+                <input type="number" id="freelance-tax" min="0" step="0.1" value="25" />
+              </label>
+              <label>
+                Billable hours per week
+                <input type="number" id="freelance-hours" min="1" step="0.5" value="24" />
+              </label>
+              <label>
+                Working weeks per year
+                <input type="number" id="freelance-weeks" min="1" step="1" value="46" />
+              </label>
+              <button class="button button-primary" type="submit">Calculate</button>
+            </form>
+          </article>
+
+          <aside class="result-card sticky-ad-card">
+            <p class="eyebrow">Estimated result</p>
+            <h2 id="freelance-rate">$0.00/hr</h2>
+            <dl class="result-list">
+              <div>
+                <dt>Billable hours per year</dt>
+                <dd id="freelance-billable">0</dd>
+              </div>
+              <div>
+                <dt>Pre-tax revenue target</dt>
+                <dd id="freelance-target">$0.00</dd>
+              </div>
+              <div>
+                <dt>Annual tax reserve</dt>
+                <dd id="freelance-reserve">$0.00</dd>
+              </div>
+              <div>
+                <dt>Suggested project day rate</dt>
+                <dd id="freelance-day">$0.00</dd>
+              </div>
+            </dl>
+            <div class="ad-slot vertical">
+              <span>300 x 250 ad slot</span>
+              <small>Swap this with an affiliate card for invoicing software later.</small>
+            </div>
+          </aside>
+        </section>
+
+        <section class="page-grid">
+          <article class="content-card">
+            <h2>Why freelancers underprice themselves</h2>
+            <p>
+              Many rate discussions start from a salary number and ignore unpaid
+              admin time, marketing, taxes, and business software. This calculator
+              helps you work from a more realistic revenue target.
+            </p>
+            <p>
+              It is meant as a planning tool, not tax or legal advice, and should be
+              adjusted to fit your market, skill level, and project complexity.
+            </p>
+            <div class="inline-ad-wrap">
+              <p class="eyebrow">Advertisement</p>
+              <div class="ad-slot">
+                <span>Responsive result-area ad</span>
+                <small>Good place for an in-content AdSense unit after the calculation area.</small>
+              </div>
+            </div>
+          </article>
+          <article class="content-card">
+            <h2>How to build traffic around this page</h2>
+            <p>
+              Good supporting topics include pricing by niche, hourly versus project
+              rates, rate increase email templates, and freelancer cost breakdowns
+              for designers, writers, and developers.
+            </p>
+            <p>
+              That gives you search traffic plus useful internal links into the
+              calculator.
+            </p>
+          </article>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div>
+          <strong>Margin Atlas</strong>
+          <p>Practical calculators for fees, taxes, salary, and pricing decisions.</p>
+          <p class="contact-note">
+            If you have any valuable suggestions, issues, or ideas for website
+            improvement, feel free to email us.
+          </p>
+          <p class="contact-note">
+            We welcome feedback that can help us improve Margin Atlas and make the
+            calculator experience better.
+          </p>
+        </div>
+        <div class="footer-links">
+          <a href="../index.html">Home</a>
+          <a href="./etsy-fee-calculator.html">Etsy Calculator</a>
+          <a href="./paypal-fee-calculator.html">PayPal Calculator</a>
+          <a href="mailto:cschat2026@gmail.com?subject=Margin%20Atlas%20Feedback">Contact</a>
+        </div>
+      </footer>
+      <div class="mobile-ad-dock">
+        <div class="mobile-ad-inner">
+          <span>Mobile anchor ad slot</span>
+          <small>High-visibility area for mobile display ads after approval.</small>
+        </div>
+      </div>
+    </div>
+    <script src="../script.js"></script>
+  </body>
+</html>
