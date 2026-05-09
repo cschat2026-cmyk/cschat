@@ -32,6 +32,47 @@ function applyDeviceMode() {
 
   document.body.classList.remove("is-mobile", "is-desktop");
   document.body.classList.add(isMobile ? "is-mobile" : "is-desktop");
+  document.body.classList.toggle("has-mobile-dock", isMobile);
+}
+
+function setCanonicalDomain() {
+  const liveOrigin = "https://customer20.top";
+  const canonical = document.querySelector('link[rel="canonical"]');
+  const ogUrl = document.querySelector('meta[property="og:url"]');
+
+  if (window.location.protocol !== "file:") {
+    if (canonical) {
+      canonical.href = `${liveOrigin}${window.location.pathname}`;
+    }
+
+    if (ogUrl) {
+      ogUrl.setAttribute("content", `${liveOrigin}${window.location.pathname}`);
+    }
+  }
+}
+
+function upgradeAdPlaceholders() {
+  const adSlots = document.querySelectorAll(".ad-slot");
+
+  adSlots.forEach((slot) => {
+    const label = slot.dataset.adLabel;
+    const note = slot.dataset.adNote;
+
+    if (!label && !note) {
+      return;
+    }
+
+    const title = slot.querySelector("span");
+    const helper = slot.querySelector("small");
+
+    if (title && label) {
+      title.textContent = label;
+    }
+
+    if (helper && note) {
+      helper.textContent = note;
+    }
+  });
 }
 
 function runEtsyCalculator() {
@@ -312,6 +353,8 @@ function renderRegionTools(regionCode) {
 
 document.addEventListener("DOMContentLoaded", () => {
   applyDeviceMode();
+  setCanonicalDomain();
+  upgradeAdPlaceholders();
   window.addEventListener("resize", applyDeviceMode);
 
   const type = document.body.dataset.calculator;

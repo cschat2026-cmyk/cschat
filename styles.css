@@ -46,7 +46,7 @@ img {
 .site-shell {
   width: min(calc(100% - 32px), var(--content-width));
   margin: 0 auto;
-  padding: 24px 0 48px;
+  padding: 24px 0 120px;
 }
 
 .topbar {
@@ -97,6 +97,10 @@ img {
   display: inline-flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+.topnav::-webkit-scrollbar {
+  display: none;
 }
 
 .country-switcher {
@@ -417,6 +421,7 @@ img {
   display: grid;
   place-items: center;
   min-height: 180px;
+  padding: 20px;
   border: 1px dashed rgba(138, 63, 23, 0.35);
   border-radius: var(--radius-md);
   text-align: center;
@@ -432,6 +437,30 @@ img {
 .ad-slot.vertical {
   min-height: 250px;
   margin-top: 20px;
+}
+
+.ad-slot.hero-slot {
+  min-height: 160px;
+}
+
+.ad-slot.banner-slot {
+  min-height: 150px;
+}
+
+.ad-slot.sidebar-slot {
+  min-height: 280px;
+}
+
+.ad-slot.inline-slot {
+  min-height: 170px;
+}
+
+.ad-slot.mobile-slot {
+  min-height: 76px;
+  width: 100%;
+  padding: 10px 14px;
+  border-style: solid;
+  border-radius: 18px 18px 0 0;
 }
 
 .inline-ad-wrap {
@@ -587,6 +616,13 @@ body.is-mobile .result-card {
   order: -1;
 }
 
+body.is-mobile .inline-ad-wrap .ad-slot,
+body.is-mobile .hero-ad-wrap .ad-slot,
+body.is-mobile .ad-band .ad-slot,
+body.is-mobile .result-card .ad-slot.vertical {
+  min-height: 120px;
+}
+
 body.is-mobile .page-hero.compact {
   padding-bottom: 18px;
 }
@@ -597,6 +633,27 @@ body.is-mobile .country-switcher {
 
 body.is-mobile .country-switcher select {
   width: 100%;
+}
+
+body.is-mobile .region-pills {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+body.is-mobile .topnav {
+  width: 100%;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+body.is-mobile .footer {
+  padding-bottom: 24px;
+}
+
+body.has-mobile-dock {
+  padding-bottom: 112px;
 }
 
 body.is-desktop .mobile-quick-links {
@@ -617,6 +674,15 @@ body.is-desktop .mobile-quick-links {
   .topbar {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .topbar {
+    padding-bottom: 20px;
+  }
+
+  .country-switcher,
+  .topnav {
+    width: 100%;
   }
 
   .sticky-ad-card {
@@ -651,9 +717,14 @@ body.is-desktop .mobile-quick-links {
     font-size: 2.35rem;
   }
 
-  .button,
-  .topnav a {
+  .button {
     width: 100%;
+  }
+
+  .topnav a {
+    min-width: 108px;
+    width: auto;
+    text-align: center;
   }
 
   .hero-actions {
@@ -664,7 +735,17 @@ body.is-desktop .mobile-quick-links {
     display: flex;
   }
 
+  .mobile-ad-inner small {
+    display: none;
+  }
+
   .quick-link-row {
     grid-template-columns: 1fr;
+  }
+
+  .footer-links {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
