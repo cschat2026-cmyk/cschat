@@ -25,6 +25,15 @@ function updateText(id, value) {
   }
 }
 
+function applyDeviceMode() {
+  const isMobile =
+    window.matchMedia("(max-width: 768px)").matches ||
+    /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+
+  document.body.classList.remove("is-mobile", "is-desktop");
+  document.body.classList.add(isMobile ? "is-mobile" : "is-desktop");
+}
+
 function runEtsyCalculator() {
   const price = getNumber("etsy-price");
   const shipping = getNumber("etsy-shipping");
@@ -302,6 +311,9 @@ function renderRegionTools(regionCode) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  applyDeviceMode();
+  window.addEventListener("resize", applyDeviceMode);
+
   const type = document.body.dataset.calculator;
   const switcher = document.getElementById("country-switcher");
   const pills = document.querySelectorAll(".region-pill");
