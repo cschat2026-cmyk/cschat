@@ -1,0 +1,43 @@
+<svg width="1400" height="980" viewBox="0 0 1400 980" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8f1e6"/>
+      <stop offset="100%" stop-color="#efe0cc"/>
+    </linearGradient>
+  </defs>
+  <rect width="1400" height="980" fill="url(#bg)"/>
+  <text x="100" y="110" font-size="54" font-family="Avenir Next, Segoe UI, Arial" font-weight="800" fill="#1d180f">Boards to Create First</text>
+  <text x="100" y="165" font-size="24" font-family="Avenir Next, Segoe UI, Arial" fill="#6a5848">Build these Boards before posting the first 8 Pins.</text>
+
+  <g>
+    <rect x="100" y="230" width="560" height="150" rx="30" fill="#fffdfa" stroke="#d9c4ac"/>
+    <text x="145" y="295" font-size="36" font-family="Avenir Next, Segoe UI, Arial" font-weight="800" fill="#1d180f">Seller Fee Calculators</text>
+    <text x="145" y="345" font-size="24" font-family="Avenir Next, Segoe UI, Arial" fill="#645846">Use for Etsy Fee Calculator and PayPal Fee Calculator.</text>
+  </g>
+
+  <g>
+    <rect x="740" y="230" width="560" height="150" rx="30" fill="#fffdfa" stroke="#d9c4ac"/>
+    <text x="785" y="295" font-size="36" font-family="Avenir Next, Segoe UI, Arial" font-weight="800" fill="#1d180f">Freelance Pricing Tools</text>
+    <text x="785" y="345" font-size="24" font-family="Avenir Next, Segoe UI, Arial" fill="#645846">Use for Freelance Rate Calculator.</text>
+  </g>
+
+  <g>
+    <rect x="100" y="430" width="560" height="150" rx="30" fill="#fffdfa" stroke="#d9c4ac"/>
+    <text x="145" y="495" font-size="36" font-family="Avenir Next, Segoe UI, Arial" font-weight="800" fill="#1d180f">Salary and Pay Calculators</text>
+    <text x="145" y="545" font-size="24" font-family="Avenir Next, Segoe UI, Arial" fill="#645846">Use for Salary to Hourly Calculator.</text>
+  </g>
+
+  <g>
+    <rect x="740" y="430" width="560" height="150" rx="30" fill="#fffdfa" stroke="#d9c4ac"/>
+    <text x="785" y="495" font-size="36" font-family="Avenir Next, Segoe UI, Arial" font-weight="800" fill="#1d180f">VAT and GST Calculators</text>
+    <text x="785" y="545" font-size="24" font-family="Avenir Next, Segoe UI, Arial" fill="#645846">Use for VAT, GST/HST, GST Australia, and GST NZ.</text>
+  </g>
+
+  <g>
+    <rect x="420" y="630" width="560" height="150" rx="30" fill="#fffdfa" stroke="#d9c4ac"/>
+    <text x="465" y="695" font-size="36" font-family="Avenir Next, Segoe UI, Arial" font-weight="800" fill="#1d180f">Small Business Money Tools</text>
+    <text x="465" y="745" font-size="24" font-family="Avenir Next, Segoe UI, Arial" fill="#645846">Keep this ready for future calculator pages and mixed content.</text>
+  </g>
+
+  <text x="100" y="885" font-size="28" font-family="Avenir Next, Segoe UI, Arial" fill="#5f5247">Recommended order: create all boards first, then publish two Pins per day for four days.</text>
+</svg>
