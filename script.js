@@ -117,6 +117,24 @@ function runPayPalCalculator() {
   updateText("paypal-rate", formatPercent(feeRate));
 }
 
+function runStripeCalculator() {
+  const amount = getNumber("stripe-amount");
+  const percent = getNumber("stripe-percent") / 100;
+  const fixed = getNumber("stripe-fixed");
+  const target = getNumber("stripe-target");
+
+  const fee = amount * percent + fixed;
+  const netReceived = amount - fee;
+  const requiredCharge = percent < 1 ? (target + fixed) / (1 - percent) : 0;
+  const feeRate = amount > 0 ? (fee / amount) * 100 : 0;
+
+  updateText("stripe-fee", formatCurrency(fee));
+  updateText("stripe-net", formatCurrency(netReceived));
+  updateText("stripe-received", formatCurrency(netReceived));
+  updateText("stripe-required", formatCurrency(requiredCharge));
+  updateText("stripe-rate", formatPercent(feeRate));
+}
+
 function runFreelanceCalculator() {
   const incomeGoal = getNumber("freelance-income");
   const expenses = getNumber("freelance-expenses");
@@ -188,6 +206,7 @@ const regionContent = {
     name: "United States",
     heading: "Featured tools for United States",
     title: "Start with US pricing, salary, and seller tools",
+    copy: "Popular US calculator demand tends to cluster around seller fees, payment processing, freelance pricing, and salary comparisons.",
     tools: [
       {
         tag: "Marketplace fees",
@@ -202,6 +221,12 @@ const regionContent = {
         href: "./calculators/paypal-fee-calculator.html",
       },
       {
+        tag: "Card processing",
+        title: "Stripe Fee Calculator",
+        description: "Estimate Stripe fees and reverse-calculate your target payout.",
+        href: "./calculators/stripe-fee-calculator.html",
+      },
+      {
         tag: "Salary conversion",
         title: "Salary to Hourly Calculator",
         description: "Compare annual salary, hourly pay, and weekly income more clearly.",
@@ -212,19 +237,26 @@ const regionContent = {
   uk: {
     name: "United Kingdom",
     heading: "Featured tools for United Kingdom",
-    title: "Start with VAT, property, and pricing tools for the UK",
+    title: "Start with VAT, freelance, and payment tools for the UK",
+    copy: "UK visitors often compare VAT totals, freelance pricing, online payment fees, and annual-to-hourly pay conversions.",
     tools: [
-      {
-        tag: "UK property",
-        title: "Stamp Duty Calculator",
-        description: "A strong UK-focused topic for homebuyers and researchers.",
-        href: "./calculators/vat-calculator.html",
-      },
       {
         tag: "UK business tax",
         title: "VAT Calculator",
         description: "Useful for invoices, quotes, and small business pricing.",
         href: "./calculators/vat-calculator.html",
+      },
+      {
+        tag: "Payment processing",
+        title: "PayPal Fee Calculator",
+        description: "Useful for freelancers, online sellers, and one-off invoice planning.",
+        href: "./calculators/paypal-fee-calculator.html",
+      },
+      {
+        tag: "Card processing",
+        title: "Stripe Fee Calculator",
+        description: "Helpful for service businesses and online merchants estimating net payout.",
+        href: "./calculators/stripe-fee-calculator.html",
       },
       {
         tag: "Salary conversion",
@@ -238,6 +270,7 @@ const regionContent = {
     name: "Canada",
     heading: "Featured tools for Canada",
     title: "Start with payroll, GST/HST, and seller tools for Canada",
+    copy: "Canadian traffic often centers on GST/HST calculations, take-home comparisons, seller fees, and payment processing estimates.",
     tools: [
       {
         tag: "Canadian business tax",
@@ -257,12 +290,19 @@ const regionContent = {
         description: "Useful for Canadian creators and handmade sellers.",
         href: "./calculators/etsy-fee-calculator.html",
       },
+      {
+        tag: "Payment processing",
+        title: "Stripe Fee Calculator",
+        description: "Useful for independent businesses that accept card payments online.",
+        href: "./calculators/stripe-fee-calculator.html",
+      },
     ],
   },
   au: {
     name: "Australia",
     heading: "Featured tools for Australia",
     title: "Start with GST, rate planning, and business pricing for Australia",
+    copy: "Australian users frequently search for GST calculations, freelance pricing, seller fee estimates, and payment processing costs.",
     tools: [
       {
         tag: "Australian business tax",
@@ -282,12 +322,19 @@ const regionContent = {
         description: "Good for Australian sellers validating handmade pricing.",
         href: "./calculators/etsy-fee-calculator.html",
       },
+      {
+        tag: "Payment processing",
+        title: "PayPal Fee Calculator",
+        description: "Helpful for service businesses and digital sellers taking remote payments.",
+        href: "./calculators/paypal-fee-calculator.html",
+      },
     ],
   },
   nz: {
     name: "New Zealand",
     heading: "Featured tools for New Zealand",
     title: "Start with GST and small business tools for New Zealand",
+    copy: "New Zealand demand often leans toward GST calculations, small business pricing, payment fees, and contractor rate planning.",
     tools: [
       {
         tag: "New Zealand business tax",
@@ -307,6 +354,12 @@ const regionContent = {
         description: "A practical baseline tool for independent workers.",
         href: "./calculators/freelance-rate-calculator.html",
       },
+      {
+        tag: "Payment processing",
+        title: "Stripe Fee Calculator",
+        description: "Helpful for online businesses estimating payment deductions and net revenue.",
+        href: "./calculators/stripe-fee-calculator.html",
+      },
     ],
   },
 };
@@ -315,6 +368,7 @@ function renderRegionTools(regionCode) {
   const region = regionContent[regionCode] || regionContent.us;
   const heading = document.getElementById("region-heading");
   const toolsTitle = document.getElementById("tools-title");
+  const regionCopy = document.getElementById("region-copy");
   const toolsGrid = document.getElementById("regional-tools");
   const switcher = document.getElementById("country-switcher");
   const pills = document.querySelectorAll(".region-pill");
@@ -325,6 +379,10 @@ function renderRegionTools(regionCode) {
 
   if (toolsTitle) {
     toolsTitle.textContent = region.title;
+  }
+
+  if (regionCopy) {
+    regionCopy.textContent = region.copy;
   }
 
   if (switcher) {
@@ -349,6 +407,12 @@ function renderRegionTools(regionCode) {
       )
       .join("");
   }
+
+  try {
+    localStorage.setItem("margin-atlas-region", regionCode);
+  } catch (error) {
+    // Ignore storage issues in private or restricted browsing contexts.
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -363,12 +427,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (switcher) {
     const locale = (navigator.language || "").toLowerCase();
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
     let defaultRegion = "us";
+    let savedRegion = "";
 
-    if (locale.includes("en-gb")) defaultRegion = "uk";
-    if (locale.includes("en-ca")) defaultRegion = "ca";
-    if (locale.includes("en-au")) defaultRegion = "au";
-    if (locale.includes("en-nz")) defaultRegion = "nz";
+    try {
+      savedRegion = localStorage.getItem("margin-atlas-region") || "";
+    } catch (error) {
+      savedRegion = "";
+    }
+
+    if (savedRegion && regionContent[savedRegion]) {
+      defaultRegion = savedRegion;
+    } else {
+      if (locale.includes("en-gb") || timeZone.includes("London")) defaultRegion = "uk";
+      if (locale.includes("en-ca") || timeZone.includes("Toronto") || timeZone.includes("Vancouver")) defaultRegion = "ca";
+      if (locale.includes("en-au") || timeZone.includes("Sydney") || timeZone.includes("Melbourne")) defaultRegion = "au";
+      if (locale.includes("en-nz") || timeZone.includes("Auckland")) defaultRegion = "nz";
+    }
 
     renderRegionTools(defaultRegion);
     switcher.addEventListener("change", (event) => {
@@ -388,6 +464,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (type === "paypal") {
     bindCalculator("paypal-form", runPayPalCalculator);
+  }
+
+  if (type === "stripe") {
+    bindCalculator("stripe-form", runStripeCalculator);
   }
 
   if (type === "freelance") {

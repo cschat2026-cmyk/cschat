@@ -3,17 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PayPal Fee Calculator | Margin Atlas</title>
+    <title>Stripe Fee Calculator | Margin Atlas</title>
     <meta
       name="description"
-      content="Estimate PayPal fees and reverse-calculate the amount to charge if you want to receive a target amount after processing fees."
+      content="Estimate Stripe processing fees and reverse-calculate the amount to charge if you want to receive a target payout after fees."
     />
-    <link rel="canonical" href="https://customer20.top/calculators/paypal-fee-calculator.html" />
+    <link rel="canonical" href="https://customer20.top/calculators/stripe-fee-calculator.html" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2456404542897668"
      crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../styles.css" />
   </head>
-  <body data-calculator="paypal">
+  <body data-calculator="stripe">
     <div class="site-shell">
       <header class="topbar">
         <a class="brand" href="../index.html">
@@ -34,32 +34,32 @@
         <section class="page-hero compact">
           <p class="device-badge">Fast calculator view for mobile and desktop</p>
           <p class="eyebrow">Payment processing</p>
-          <h1>PayPal Fee Calculator</h1>
+          <h1>Stripe Fee Calculator</h1>
           <p>
-            Work backward from your target payout or calculate your estimated
-            processing cost on a payment you are about to receive.
+            Estimate Stripe fees or reverse-calculate how much to charge when you
+            want to keep a target payout after processing costs.
           </p>
         </section>
 
         <section class="calculator-layout">
           <article class="calculator-card">
             <h2>Enter your numbers</h2>
-            <form class="calculator-form" id="paypal-form">
+            <form class="calculator-form" id="stripe-form">
               <label>
                 Amount charged
-                <input type="number" id="paypal-amount" min="0" step="0.01" value="250" />
+                <input type="number" id="stripe-amount" min="0" step="0.01" value="250" />
               </label>
               <label>
                 Fee percentage (%)
-                <input type="number" id="paypal-percent" min="0" step="0.01" value="3.49" />
+                <input type="number" id="stripe-percent" min="0" step="0.01" value="2.9" />
               </label>
               <label>
                 Fixed fee
-                <input type="number" id="paypal-fixed" min="0" step="0.01" value="0.49" />
+                <input type="number" id="stripe-fixed" min="0" step="0.01" value="0.30" />
               </label>
               <label>
                 Target amount you want to receive
-                <input type="number" id="paypal-target" min="0" step="0.01" value="200" />
+                <input type="number" id="stripe-target" min="0" step="0.01" value="200" />
               </label>
               <button class="button button-primary" type="submit">Calculate</button>
             </form>
@@ -67,23 +67,23 @@
 
           <aside class="result-card sticky-ad-card">
             <p class="eyebrow">Estimated result</p>
-            <h2 id="paypal-net">$0.00</h2>
+            <h2 id="stripe-net">$0.00</h2>
             <dl class="result-list">
               <div>
                 <dt>Processing fee</dt>
-                <dd id="paypal-fee">$0.00</dd>
+                <dd id="stripe-fee">$0.00</dd>
               </div>
               <div>
                 <dt>Net received</dt>
-                <dd id="paypal-received">$0.00</dd>
+                <dd id="stripe-received">$0.00</dd>
               </div>
               <div>
                 <dt>Charge needed for target</dt>
-                <dd id="paypal-required">$0.00</dd>
+                <dd id="stripe-required">$0.00</dd>
               </div>
               <div>
                 <dt>Effective fee rate</dt>
-                <dd id="paypal-rate">0%</dd>
+                <dd id="stripe-rate">0%</dd>
               </div>
             </dl>
             <div
@@ -99,15 +99,16 @@
 
         <section class="page-grid">
           <article class="content-card">
-            <h2>When to use a PayPal fee calculator</h2>
+            <h2>When to use a Stripe fee calculator</h2>
             <p>
-              This tool is helpful when you are setting a price for freelance work,
-              selling a digital file, or quoting a one-off invoice and want to know
-              how much payment processing will take from the final amount.
+              This tool is useful for freelancers, SaaS sellers, service businesses,
+              and online merchants that want to understand payment processing costs
+              before they set a final price.
             </p>
             <p>
-              The reverse calculation is especially useful when you have a fixed
-              target amount in mind and need to price around the fee.
+              Reverse-calculating the charge needed for a target payout is
+              especially useful when you want to protect your margins on invoices,
+              links, or checkout payments.
             </p>
             <div class="inline-ad-wrap">
               <p class="eyebrow">Advertisement</p>
@@ -122,42 +123,33 @@
             </div>
           </article>
           <article class="content-card">
-            <h2>Growth angles for this page</h2>
+            <h2>Who should use this Stripe fee calculator</h2>
             <p>
-              You can expand this page with fee examples, business-use cases, region
-              notes, and links to invoice tools or payment platform comparisons.
-            </p>
-            <p>
-              That gives this page stronger monetization paths than ads alone.
-            </p>
-            <h2>Who should use this PayPal fee calculator</h2>
-            <p>
-              This calculator is useful for freelancers, digital sellers, service
-              businesses, and online merchants who need to estimate processing fees
-              or reverse-calculate the amount to charge in order to receive a target
-              payout after deductions.
+              This page is useful for businesses taking card payments online,
+              consultants sending payment links, and product sellers who want a
+              simple estimate before they publish a price.
             </p>
             <h2>Frequently asked questions</h2>
-            <h3>Can I use this to calculate how much to charge a client?</h3>
+            <h3>Are Stripe fees the same in every country?</h3>
             <p>
-              Yes. The reverse-charge estimate is designed for that use case and can
-              help you account for fees before sending an invoice or quote.
+              No. Stripe pricing can vary by market, card type, and transaction
+              category, so this page works best as a quick planning estimate.
             </p>
-            <h3>Are PayPal fees the same in every country?</h3>
+            <h3>Can I use this for invoice pricing?</h3>
             <p>
-              No. Rates can vary by market, account type, and transaction category,
-              so this page works best as a planning estimate.
+              Yes. It is helpful when you need to know how much to charge so the
+              final payout still lands near your target.
             </p>
             <h2>Example calculation</h2>
             <p>
-              Example: if you charge $250 with a 3.49% fee and a $0.49 fixed fee,
-              the estimated processing fee is about $9.22 and the net received is
-              about $240.78.
+              Example: if you charge $250 with a 2.9% fee and a $0.30 fixed fee, the
+              estimated processing fee is about $7.55 and the net received is about
+              $242.45.
             </p>
             <h2>Related tools</h2>
             <p>
-              Compare this with the
-              <a class="inline-link" href="./stripe-fee-calculator.html">Stripe Fee Calculator</a>,
+              Related pages include the
+              <a class="inline-link" href="./paypal-fee-calculator.html">PayPal Fee Calculator</a>,
               the
               <a class="inline-link" href="./etsy-fee-calculator.html">Etsy Fee Calculator</a>,
               and the
@@ -182,8 +174,8 @@
         </div>
         <div class="footer-links">
           <a href="../index.html">Home</a>
+          <a href="./paypal-fee-calculator.html">PayPal Calculator</a>
           <a href="./etsy-fee-calculator.html">Etsy Calculator</a>
-          <a href="./freelance-rate-calculator.html">Freelance Calculator</a>
           <a href="mailto:cschat2026@gmail.com?subject=Margin%20Atlas%20Feedback">Contact</a>
         </div>
       </footer>

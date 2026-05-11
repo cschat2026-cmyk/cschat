@@ -396,11 +396,40 @@ img {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.expansion-grid {
+  padding: 8px 0 6px;
+}
+
 .inline-link {
   display: inline-flex;
   margin-top: 12px;
   color: var(--accent-dark);
   font-weight: 700;
+}
+
+.link-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.link-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--accent-dark);
+  font-weight: 700;
+  transition: 180ms ease;
+}
+
+.link-chip:hover {
+  border-color: rgba(196, 99, 45, 0.4);
+  background: rgba(240, 200, 169, 0.34);
 }
 
 .contact-button {
