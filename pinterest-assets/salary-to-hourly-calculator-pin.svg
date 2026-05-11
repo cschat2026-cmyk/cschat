@@ -1,0 +1,25 @@
+<svg width="1000" height="1500" viewBox="0 0 1000 1500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eef3e8"/>
+      <stop offset="100%" stop-color="#d6e2c8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1000" height="1500" fill="url(#bg)"/>
+  <circle cx="820" cy="190" r="150" fill="#54724d" opacity="0.14"/>
+  <circle cx="185" cy="1285" r="170" fill="#7f9c73" opacity="0.10"/>
+  <rect x="70" y="70" width="860" height="1360" rx="42" fill="#fffdfa" stroke="#d9e3cf"/>
+  <text x="120" y="170" font-size="34" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#54724d">Margin Atlas</text>
+  <text x="120" y="245" font-size="26" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#7f9c73">SALARY AND PAY CALCULATORS</text>
+  <text x="120" y="380" font-size="80" font-family="Georgia, Times New Roman, serif" font-weight="700" fill="#1d180f">Salary to</text>
+  <text x="120" y="465" font-size="80" font-family="Georgia, Times New Roman, serif" font-weight="700" fill="#1d180f">Hourly</text>
+  <text x="120" y="565" font-size="34" font-family="Avenir Next, Segoe UI, Arial" fill="#5e6c59">Convert annual salary into hourly,</text>
+  <text x="120" y="610" font-size="34" font-family="Avenir Next, Segoe UI, Arial" fill="#5e6c59">weekly, and monthly pay in seconds.</text>
+  <rect x="120" y="700" width="760" height="260" rx="28" fill="#f4f8f0"/>
+  <text x="170" y="790" font-size="36" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#1d180f">Useful for job and freelance comparisons</text>
+  <text x="170" y="860" font-size="30" font-family="Avenir Next, Segoe UI, Arial" fill="#5e6c59">Adjust annual pay, hours per week,</text>
+  <text x="170" y="910" font-size="30" font-family="Avenir Next, Segoe UI, Arial" fill="#5e6c59">and working weeks to compare options.</text>
+  <rect x="120" y="1045" width="430" height="96" rx="48" fill="#54724d"/>
+  <text x="190" y="1105" font-size="34" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#ffffff">Compare offers clearly</text>
+  <text x="120" y="1285" font-size="28" font-family="Avenir Next, Segoe UI, Arial" fill="#54724d">customer20.top</text>
+</svg>

@@ -1,0 +1,25 @@
+<svg width="1000" height="1500" viewBox="0 0 1000 1500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#edf3fb"/>
+      <stop offset="100%" stop-color="#d9e7f8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1000" height="1500" fill="url(#bg)"/>
+  <circle cx="835" cy="190" r="150" fill="#305a8d" opacity="0.14"/>
+  <circle cx="150" cy="1285" r="170" fill="#6f92c0" opacity="0.10"/>
+  <rect x="70" y="70" width="860" height="1360" rx="42" fill="#fffdfa" stroke="#d7e4f3"/>
+  <text x="120" y="170" font-size="34" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#305a8d">Margin Atlas</text>
+  <text x="120" y="245" font-size="26" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#6f92c0">VAT AND GST CALCULATORS</text>
+  <text x="120" y="380" font-size="82" font-family="Georgia, Times New Roman, serif" font-weight="700" fill="#1d180f">GST HST</text>
+  <text x="120" y="465" font-size="82" font-family="Georgia, Times New Roman, serif" font-weight="700" fill="#1d180f">Calculator</text>
+  <text x="120" y="565" font-size="34" font-family="Avenir Next, Segoe UI, Arial" fill="#586b7e">Estimate Canadian tax totals for invoices,</text>
+  <text x="120" y="610" font-size="34" font-family="Avenir Next, Segoe UI, Arial" fill="#586b7e">purchase prices, and business quotes.</text>
+  <rect x="120" y="700" width="760" height="260" rx="28" fill="#f2f7fd"/>
+  <text x="170" y="790" font-size="36" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#1d180f">Built for Canadian pricing checks</text>
+  <text x="170" y="860" font-size="30" font-family="Avenir Next, Segoe UI, Arial" fill="#586b7e">Enter the pre-tax amount and the</text>
+  <text x="170" y="910" font-size="30" font-family="Avenir Next, Segoe UI, Arial" fill="#586b7e">GST or HST rate to compare totals.</text>
+  <rect x="120" y="1045" width="430" height="96" rx="48" fill="#305a8d"/>
+  <text x="182" y="1105" font-size="34" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#ffffff">Simple Canada tax tool</text>
+  <text x="120" y="1285" font-size="28" font-family="Avenir Next, Segoe UI, Arial" fill="#305a8d">customer20.top</text>
+</svg>

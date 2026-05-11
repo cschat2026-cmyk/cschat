@@ -1,0 +1,25 @@
+<svg width="1000" height="1500" viewBox="0 0 1000 1500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f7efe3"/>
+      <stop offset="100%" stop-color="#e8d0b7"/>
+    </linearGradient>
+  </defs>
+  <rect width="1000" height="1500" fill="url(#bg)"/>
+  <circle cx="860" cy="180" r="140" fill="#c4632d" opacity="0.14"/>
+  <circle cx="150" cy="1310" r="180" fill="#8a3f17" opacity="0.08"/>
+  <rect x="70" y="70" width="860" height="1360" rx="42" fill="#fffdfa" stroke="#e8d9c7"/>
+  <text x="120" y="170" font-size="34" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#8a3f17">Margin Atlas</text>
+  <text x="120" y="245" font-size="26" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#c4632d">SELLER FEE CALCULATORS</text>
+  <text x="120" y="380" font-size="86" font-family="Georgia, Times New Roman, serif" font-weight="700" fill="#1d180f">Etsy Fee</text>
+  <text x="120" y="470" font-size="86" font-family="Georgia, Times New Roman, serif" font-weight="700" fill="#1d180f">Calculator</text>
+  <text x="120" y="575" font-size="34" font-family="Avenir Next, Segoe UI, Arial" fill="#645846">Estimate listing fees, payment charges,</text>
+  <text x="120" y="620" font-size="34" font-family="Avenir Next, Segoe UI, Arial" fill="#645846">and profit before you price a product.</text>
+  <rect x="120" y="705" width="760" height="250" rx="28" fill="#f7efe6"/>
+  <text x="170" y="790" font-size="36" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#1d180f">Try a quick example</text>
+  <text x="170" y="860" font-size="30" font-family="Avenir Next, Segoe UI, Arial" fill="#645846">$48 item + $6 shipping</text>
+  <text x="170" y="910" font-size="30" font-family="Avenir Next, Segoe UI, Arial" fill="#645846">See total fees and remaining profit</text>
+  <rect x="120" y="1040" width="400" height="96" rx="48" fill="#c4632d"/>
+  <text x="188" y="1100" font-size="34" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#fffdfa">Free online tool</text>
+  <text x="120" y="1285" font-size="28" font-family="Avenir Next, Segoe UI, Arial" fill="#8a3f17">customer20.top</text>
+</svg>

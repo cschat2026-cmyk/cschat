@@ -1,0 +1,25 @@
+<svg width="1000" height="1500" viewBox="0 0 1000 1500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eef6fb"/>
+      <stop offset="100%" stop-color="#cfe2ef"/>
+    </linearGradient>
+  </defs>
+  <rect width="1000" height="1500" fill="url(#bg)"/>
+  <circle cx="820" cy="220" r="150" fill="#1b5f85" opacity="0.12"/>
+  <circle cx="170" cy="1270" r="170" fill="#3a89a8" opacity="0.10"/>
+  <rect x="70" y="70" width="860" height="1360" rx="42" fill="#ffffff" stroke="#d5e5ef"/>
+  <text x="120" y="170" font-size="34" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#1b5f85">Margin Atlas</text>
+  <text x="120" y="245" font-size="26" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#3a89a8">SELLER FEE CALCULATORS</text>
+  <text x="120" y="380" font-size="80" font-family="Georgia, Times New Roman, serif" font-weight="700" fill="#13202a">PayPal Fee</text>
+  <text x="120" y="465" font-size="80" font-family="Georgia, Times New Roman, serif" font-weight="700" fill="#13202a">Calculator</text>
+  <text x="120" y="565" font-size="34" font-family="Avenir Next, Segoe UI, Arial" fill="#556770">Estimate fees or reverse-calculate</text>
+  <text x="120" y="610" font-size="34" font-family="Avenir Next, Segoe UI, Arial" fill="#556770">how much to charge to hit your target.</text>
+  <rect x="120" y="700" width="760" height="260" rx="28" fill="#f0f7fb"/>
+  <text x="170" y="790" font-size="36" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#13202a">Useful for freelancers and sellers</text>
+  <text x="170" y="860" font-size="30" font-family="Avenir Next, Segoe UI, Arial" fill="#556770">Enter payment amount, fee rate,</text>
+  <text x="170" y="910" font-size="30" font-family="Avenir Next, Segoe UI, Arial" fill="#556770">and target payout to compare scenarios.</text>
+  <rect x="120" y="1045" width="450" height="96" rx="48" fill="#1b5f85"/>
+  <text x="185" y="1105" font-size="34" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#ffffff">Plan pricing faster</text>
+  <text x="120" y="1285" font-size="28" font-family="Avenir Next, Segoe UI, Arial" fill="#1b5f85">customer20.top</text>
+</svg>

@@ -1,0 +1,25 @@
+<svg width="1000" height="1500" viewBox="0 0 1000 1500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f4efe7"/>
+      <stop offset="100%" stop-color="#dacbb7"/>
+    </linearGradient>
+  </defs>
+  <rect width="1000" height="1500" fill="url(#bg)"/>
+  <circle cx="835" cy="210" r="150" fill="#5d4a37" opacity="0.14"/>
+  <circle cx="160" cy="1305" r="160" fill="#9a7a58" opacity="0.10"/>
+  <rect x="70" y="70" width="860" height="1360" rx="42" fill="#fffdfa" stroke="#e0d5c7"/>
+  <text x="120" y="170" font-size="34" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#7a5d43">Margin Atlas</text>
+  <text x="120" y="245" font-size="26" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#9a7a58">FREELANCE PRICING TOOLS</text>
+  <text x="120" y="380" font-size="78" font-family="Georgia, Times New Roman, serif" font-weight="700" fill="#1d180f">Freelance Rate</text>
+  <text x="120" y="465" font-size="78" font-family="Georgia, Times New Roman, serif" font-weight="700" fill="#1d180f">Calculator</text>
+  <text x="120" y="565" font-size="34" font-family="Avenir Next, Segoe UI, Arial" fill="#645846">Estimate a sustainable hourly rate with</text>
+  <text x="120" y="610" font-size="34" font-family="Avenir Next, Segoe UI, Arial" fill="#645846">income goals, taxes, and billable hours.</text>
+  <rect x="120" y="700" width="760" height="275" rx="28" fill="#f8f3ed"/>
+  <text x="170" y="790" font-size="36" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#1d180f">Built for independent professionals</text>
+  <text x="170" y="860" font-size="30" font-family="Avenir Next, Segoe UI, Arial" fill="#645846">Great for designers, writers, developers,</text>
+  <text x="170" y="910" font-size="30" font-family="Avenir Next, Segoe UI, Arial" fill="#645846">consultants, and service businesses.</text>
+  <rect x="120" y="1050" width="470" height="96" rx="48" fill="#7a5d43"/>
+  <text x="190" y="1110" font-size="34" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#fffdfa">Price work with confidence</text>
+  <text x="120" y="1285" font-size="28" font-family="Avenir Next, Segoe UI, Arial" fill="#7a5d43">customer20.top</text>
+</svg>

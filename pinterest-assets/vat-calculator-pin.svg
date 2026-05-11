@@ -1,0 +1,25 @@
+<svg width="1000" height="1500" viewBox="0 0 1000 1500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f7f0ec"/>
+      <stop offset="100%" stop-color="#efddd2"/>
+    </linearGradient>
+  </defs>
+  <rect width="1000" height="1500" fill="url(#bg)"/>
+  <circle cx="830" cy="210" r="150" fill="#8d5c4d" opacity="0.14"/>
+  <circle cx="165" cy="1285" r="170" fill="#bc8570" opacity="0.10"/>
+  <rect x="70" y="70" width="860" height="1360" rx="42" fill="#fffdfa" stroke="#ead9d1"/>
+  <text x="120" y="170" font-size="34" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#8d5c4d">Margin Atlas</text>
+  <text x="120" y="245" font-size="26" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#bc8570">VAT AND GST CALCULATORS</text>
+  <text x="120" y="380" font-size="88" font-family="Georgia, Times New Roman, serif" font-weight="700" fill="#1d180f">VAT</text>
+  <text x="120" y="470" font-size="88" font-family="Georgia, Times New Roman, serif" font-weight="700" fill="#1d180f">Calculator</text>
+  <text x="120" y="575" font-size="34" font-family="Avenir Next, Segoe UI, Arial" fill="#6e5b55">Add VAT to a price or estimate totals</text>
+  <text x="120" y="620" font-size="34" font-family="Avenir Next, Segoe UI, Arial" fill="#6e5b55">for invoices, quotes, and pricing checks.</text>
+  <rect x="120" y="705" width="760" height="250" rx="28" fill="#fbf4f1"/>
+  <text x="170" y="790" font-size="36" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#1d180f">Useful for UK business pricing</text>
+  <text x="170" y="860" font-size="30" font-family="Avenir Next, Segoe UI, Arial" fill="#6e5b55">Quick estimates for invoices, quotes,</text>
+  <text x="170" y="910" font-size="30" font-family="Avenir Next, Segoe UI, Arial" fill="#6e5b55">and customer-facing totals.</text>
+  <rect x="120" y="1040" width="390" height="96" rx="48" fill="#8d5c4d"/>
+  <text x="180" y="1100" font-size="34" font-family="Avenir Next, Segoe UI, Arial" font-weight="700" fill="#fffdfa">Fast tax estimate</text>
+  <text x="120" y="1285" font-size="28" font-family="Avenir Next, Segoe UI, Arial" fill="#8d5c4d">customer20.top</text>
+</svg>
