@@ -56,10 +56,11 @@ function applyDeviceMode() {
   const isMobile =
     window.matchMedia("(max-width: 768px)").matches ||
     /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+  const hasMobileDock = Boolean(document.querySelector(".mobile-ad-inner"));
 
   document.body.classList.remove("is-mobile", "is-desktop");
   document.body.classList.add(isMobile ? "is-mobile" : "is-desktop");
-  document.body.classList.toggle("has-mobile-dock", isMobile);
+  document.body.classList.toggle("has-mobile-dock", isMobile && hasMobileDock);
 }
 
 function setCanonicalDomain() {
