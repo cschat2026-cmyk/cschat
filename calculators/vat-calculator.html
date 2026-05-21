@@ -50,6 +50,10 @@
                 <input type="number" id="tax-amount" min="0" step="0.01" value="100" />
               </label>
               <label>
+                Total including VAT
+                <input type="number" id="tax-gross" min="0" step="0.01" placeholder="Optional: enter gross total to reverse-calculate" />
+              </label>
+              <label>
                 VAT rate (%)
                 <input type="number" id="tax-rate" min="0" step="0.01" value="20" />
               </label>
@@ -59,19 +63,19 @@
 
           <aside class="result-card sticky-ad-card">
             <p class="eyebrow">Estimated result</p>
-            <h2 id="tax-total">$0.00</h2>
+            <h2 id="tax-total">£0.00</h2>
             <dl class="result-list">
               <div>
                 <dt>VAT amount</dt>
-                <dd id="tax-amount-result">$0.00</dd>
+                <dd id="tax-amount-result">£0.00</dd>
               </div>
               <div>
                 <dt>Total with VAT</dt>
-                <dd id="tax-total-result">$0.00</dd>
+                <dd id="tax-total-result">£0.00</dd>
               </div>
               <div>
                 <dt>Net price</dt>
-                <dd id="tax-pre-tax">$0.00</dd>
+                <dd id="tax-pre-tax">£0.00</dd>
               </div>
             </dl>
             <div
@@ -149,14 +153,7 @@
         <div>
           <strong>Margin Atlas</strong>
           <p>Practical calculators for fees, taxes, salary, and pricing decisions.</p>
-          <p class="contact-note">
-            If you have any valuable suggestions, issues, or ideas for website
-            improvement, feel free to email us.
-          </p>
-          <p class="contact-note">
-            We welcome feedback that can help us improve Margin Atlas and make the
-            calculator experience better.
-          </p>
+          <p class="contact-note">If this calculator needs a clearer input, a better example, or another feature, email us.</p>
         </div>
         <div class="footer-links">
           <a href="../index.html">Home</a>

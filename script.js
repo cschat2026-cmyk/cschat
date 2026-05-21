@@ -1,7 +1,7 @@
-function formatCurrency(value) {
+function formatCurrency(value, currency = "USD") {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: "USD",
+    currency,
     maximumFractionDigits: 2,
   }).format(Number.isFinite(value) ? value : 0);
 }
@@ -23,6 +23,33 @@ function updateText(id, value) {
   if (element) {
     element.textContent = value;
   }
+}
+
+function getCalculatorLabel(type) {
+  const labels = {
+    etsy: "Etsy Fee Calculator",
+    paypal: "PayPal Fee Calculator",
+    stripe: "Stripe Fee Calculator",
+    freelance: "Freelance Rate Calculator",
+    salary: "Salary to Hourly Calculator",
+    vat: "VAT Calculator",
+    "gst-hst": "GST/HST Calculator",
+    "gst-au": "GST Calculator Australia",
+    "gst-nz": "GST Calculator NZ",
+  };
+
+  return labels[type] || "Margin Atlas Calculator";
+}
+
+function getCalculatorCurrency(type) {
+  const currencyByCalculator = {
+    vat: "GBP",
+    "gst-hst": "CAD",
+    "gst-au": "AUD",
+    "gst-nz": "NZD",
+  };
+
+  return currencyByCalculator[type] || "USD";
 }
 
 function applyDeviceMode() {
@@ -75,6 +102,174 @@ function upgradeAdPlaceholders() {
   });
 }
 
+let latestCalculatorSummary = "";
+
+function getCalculatorQuickNote(type) {
+  const notes = {
+    etsy: "Check profit after product cost first. That is usually the fastest signal for whether the listing price is usable.",
+    paypal: "Use the target payout input when you know what you need to keep, not just what you want to charge.",
+    stripe: "If the payout matters, compare your current charge with the required charge before sending an invoice or checkout link.",
+    freelance: "If the hourly rate feels too low, reduce annual billable hours or raise the income target until the number becomes workable.",
+    salary: "This is a gross-pay comparison. Taxes, benefits, bonuses, and unpaid time still need separate review.",
+    vat: "You can enter either the pre-tax amount or the total including VAT to switch direction quickly.",
+    "gst-hst": "Use the total-including-tax field when you need to back out GST/HST from an invoice or receipt.",
+    "gst-au": "This works in both directions, which is useful when quotes and receipts show different tax formats.",
+    "gst-nz": "Use this to move between GST-exclusive and GST-inclusive totals without doing manual percentage math.",
+  };
+
+  return notes[type] || "Adjust the numbers until the result looks usable for the real pricing decision in front of you.";
+}
+
+function getCalculatorNextSteps(type) {
+  const steps = {
+    etsy: [
+      "Compare profit after product cost with your actual margin target.",
+      "Test a higher item price or lower shipping subsidy if profit is thin.",
+      "Review packaging, discounts, and ads separately before listing.",
+    ],
+    paypal: [
+      "Use the required charge when you need to keep a fixed payout.",
+      "Compare the fee rate against your usual payment methods.",
+      "Paste the copied result into your invoice or client note.",
+    ],
+    stripe: [
+      "Check whether the current charge still leaves enough after fees.",
+      "Use the required charge when quoting or setting a payment link.",
+      "Keep a note of the payout number, not just the sale price.",
+    ],
+    freelance: [
+      "Compare the hourly rate with your current market and skill level.",
+      "Revisit expenses and unpaid time if the rate seems too low.",
+      "Use the copied summary as a starting point for project pricing.",
+    ],
+    salary: [
+      "Compare this hourly view with freelance or part-time options.",
+      "Check taxes, benefits, and unpaid overtime separately.",
+      "Use the weekly and monthly views when comparing offers.",
+    ],
+    vat: [
+      "Use the tax amount when checking invoice accuracy.",
+      "Switch between net and gross when comparing quote formats.",
+      "Copy the result into your invoice note or pricing draft.",
+    ],
+    "gst-hst": [
+      "Confirm the rate matches your province or use case.",
+      "Use the tax amount to check receipts or customer totals.",
+      "Switch between gross and pre-tax figures as needed.",
+    ],
+    "gst-au": [
+      "Check the GST amount before finalizing a quote or invoice.",
+      "Use the reverse calculation when you only have the total.",
+      "Copy the result into your pricing or bookkeeping note.",
+    ],
+    "gst-nz": [
+      "Check the GST amount before sending a final total.",
+      "Reverse the total when you need the GST-exclusive amount.",
+      "Use the copied result for invoices, quotes, or bookkeeping.",
+    ],
+  };
+
+  return steps[type] || [
+    "Review the result in the context of your actual decision.",
+    "Adjust the main input that changes the outcome most.",
+    "Copy the summary if you need it in notes or email.",
+  ];
+}
+
+function setCalculatorUtility(summary, insight, tone = "neutral") {
+  latestCalculatorSummary = summary;
+
+  const insightBox = document.getElementById("calculator-insight");
+  if (insightBox) {
+    insightBox.textContent = insight;
+    insightBox.dataset.tone = tone;
+  }
+
+  const copyStatus = document.getElementById("calculator-copy-status");
+  if (copyStatus) {
+    copyStatus.textContent = "Result summary ready to copy.";
+  }
+}
+
+function ensureCalculatorUtility(callback) {
+  const resultCard = document.querySelector(".result-card");
+  const resultList = resultCard?.querySelector(".result-list");
+
+  if (!resultCard || !resultList || document.getElementById("calculator-utility")) {
+    return;
+  }
+
+  const utility = document.createElement("div");
+  utility.id = "calculator-utility";
+  utility.className = "calculator-utility";
+  utility.innerHTML = `
+    <p id="calculator-insight" class="calculator-insight" data-tone="neutral">
+      Adjust the inputs to see a clearer result note here.
+    </p>
+    <div class="calculator-next-steps">
+      <strong>What to do with this result</strong>
+      <ul id="calculator-next-steps-list"></ul>
+    </div>
+    <div class="calculator-actions" aria-label="Calculator result actions">
+      <button id="copy-calculator-summary" class="button button-primary" type="button">Copy result</button>
+      <button id="reset-calculator-example" class="button button-secondary" type="button">Reset example</button>
+    </div>
+    <p id="calculator-copy-status" class="calculator-copy-status">Result summary ready to copy.</p>
+  `;
+
+  resultList.insertAdjacentElement("afterend", utility);
+
+  const stepsList = document.getElementById("calculator-next-steps-list");
+  if (stepsList) {
+    stepsList.innerHTML = getCalculatorNextSteps(document.body.dataset.calculator)
+      .map((step) => `<li>${step}</li>`)
+      .join("");
+  }
+
+  document.getElementById("copy-calculator-summary")?.addEventListener("click", async () => {
+    const copyStatus = document.getElementById("calculator-copy-status");
+    const text = latestCalculatorSummary || `${getCalculatorLabel(document.body.dataset.calculator)} result`;
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+      }
+
+      if (copyStatus) {
+        copyStatus.textContent = "Copied. Paste this into notes, email, or a pricing draft.";
+      }
+    } catch (error) {
+      console.error("Failed to copy calculator result:", error);
+      if (copyStatus) {
+        copyStatus.textContent = "Copy failed in this browser. You can still select and copy the result manually.";
+      }
+    }
+  });
+
+  document.getElementById("reset-calculator-example")?.addEventListener("click", () => {
+    const form = document.querySelector(".calculator-form");
+    if (!form) {
+      return;
+    }
+
+    form.reset();
+    form.dataset.taxMode = "net";
+    callback();
+  });
+
+  callback();
+}
+
 function runEtsyCalculator() {
   const price = getNumber("etsy-price");
   const shipping = getNumber("etsy-shipping");
@@ -97,6 +292,24 @@ function runEtsyCalculator() {
   updateText("etsy-net", formatCurrency(net));
   updateText("etsy-profit", formatCurrency(profit));
   updateText("etsy-rate", formatPercent(feeRate));
+
+  const tone = profit <= 0 ? "risk" : feeRate > 12 ? "warning" : "good";
+  const insight =
+    profit <= 0
+      ? "This setup does not leave profit after product cost. Raise price, reduce cost, or review shipping before listing."
+      : feeRate > 12
+        ? "Fees take a noticeable share of the order. Check whether shipping, discounts, or production cost need adjustment."
+        : "The estimate leaves positive profit after common Etsy fee inputs and product cost.";
+  const summary = [
+    "Margin Atlas - Etsy Fee Calculator",
+    `Gross order value: ${formatCurrency(gross)}`,
+    `Total fees: ${formatCurrency(totalFees)} (${formatPercent(feeRate)})`,
+    `Net after fees: ${formatCurrency(net)}`,
+    `Profit after product cost: ${formatCurrency(profit)}`,
+    insight,
+  ].join("\n");
+
+  setCalculatorUtility(summary, insight, tone);
 }
 
 function runPayPalCalculator() {
@@ -115,6 +328,23 @@ function runPayPalCalculator() {
   updateText("paypal-received", formatCurrency(netReceived));
   updateText("paypal-required", formatCurrency(requiredCharge));
   updateText("paypal-rate", formatPercent(feeRate));
+
+  const difference = netReceived - target;
+  const tone = target > 0 && difference < 0 ? "risk" : feeRate > 5 ? "warning" : "good";
+  const insight =
+    target > 0 && difference < 0
+      ? `This charge falls short of your target by ${formatCurrency(Math.abs(difference))}. Use the required charge as the safer starting point.`
+      : `After estimated PayPal fees, this payment leaves ${formatCurrency(netReceived)}.`;
+  const summary = [
+    "Margin Atlas - PayPal Fee Calculator",
+    `Amount charged: ${formatCurrency(amount)}`,
+    `Processing fee: ${formatCurrency(fee)} (${formatPercent(feeRate)})`,
+    `Net received: ${formatCurrency(netReceived)}`,
+    `Charge needed for target: ${formatCurrency(requiredCharge)}`,
+    insight,
+  ].join("\n");
+
+  setCalculatorUtility(summary, insight, tone);
 }
 
 function runStripeCalculator() {
@@ -133,6 +363,23 @@ function runStripeCalculator() {
   updateText("stripe-received", formatCurrency(netReceived));
   updateText("stripe-required", formatCurrency(requiredCharge));
   updateText("stripe-rate", formatPercent(feeRate));
+
+  const difference = netReceived - target;
+  const tone = target > 0 && difference < 0 ? "risk" : feeRate > 5 ? "warning" : "good";
+  const insight =
+    target > 0 && difference < 0
+      ? `This charge falls short of your target by ${formatCurrency(Math.abs(difference))}. Use the required charge as the safer starting point.`
+      : `After estimated Stripe fees, this payment leaves ${formatCurrency(netReceived)}.`;
+  const summary = [
+    "Margin Atlas - Stripe Fee Calculator",
+    `Amount charged: ${formatCurrency(amount)}`,
+    `Processing fee: ${formatCurrency(fee)} (${formatPercent(feeRate)})`,
+    `Net received: ${formatCurrency(netReceived)}`,
+    `Charge needed for target: ${formatCurrency(requiredCharge)}`,
+    insight,
+  ].join("\n");
+
+  setCalculatorUtility(summary, insight, tone);
 }
 
 function runFreelanceCalculator() {
@@ -154,6 +401,23 @@ function runFreelanceCalculator() {
   updateText("freelance-target", formatCurrency(revenueTarget));
   updateText("freelance-reserve", formatCurrency(taxReserve));
   updateText("freelance-day", formatCurrency(dayRate));
+
+  const tone = hourlyRate < 40 ? "warning" : billableHours < 900 ? "warning" : "good";
+  const insight =
+    billableHours < 900
+      ? "Your annual billable hours are relatively low, so the hourly rate needs to carry more unpaid time."
+      : `This rate is built from ${billableHours.toFixed(0)} annual billable hours, expenses, and a tax buffer.`;
+  const summary = [
+    "Margin Atlas - Freelance Rate Calculator",
+    `Suggested hourly rate: ${formatCurrency(hourlyRate)}/hr`,
+    `Suggested project day rate: ${formatCurrency(dayRate)}`,
+    `Billable hours per year: ${billableHours.toFixed(0)}`,
+    `Pre-tax revenue target: ${formatCurrency(revenueTarget)}`,
+    `Annual tax reserve: ${formatCurrency(taxReserve)}`,
+    insight,
+  ].join("\n");
+
+  setCalculatorUtility(summary, insight, tone);
 }
 
 function runSalaryCalculator() {
@@ -169,18 +433,63 @@ function runSalaryCalculator() {
   updateText("salary-weekly", formatCurrency(weekly));
   updateText("salary-monthly", formatCurrency(monthly));
   updateText("salary-annual-result", formatCurrency(annual));
+
+  const insight = `This converts ${formatCurrency(annual)} per year into about ${formatCurrency(hourly)}/hr before tax and benefits.`;
+  const summary = [
+    "Margin Atlas - Salary to Hourly Calculator",
+    `Annual salary: ${formatCurrency(annual)}`,
+    `Hourly equivalent: ${formatCurrency(hourly)}/hr`,
+    `Weekly pay: ${formatCurrency(weekly)}`,
+    `Monthly pay: ${formatCurrency(monthly)}`,
+    `Hours per week: ${hours}`,
+    `Working weeks per year: ${weeks}`,
+    insight,
+  ].join("\n");
+
+  setCalculatorUtility(summary, insight, "good");
 }
 
 function runTaxStyleCalculator() {
-  const amount = getNumber("tax-amount");
+  const form = document.querySelector(".calculator-form");
+  const currency = getCalculatorCurrency(document.body.dataset.calculator);
+  const grossInput = document.getElementById("tax-gross");
+  const grossValue = grossInput ? getNumber("tax-gross") : 0;
   const rate = getNumber("tax-rate") / 100;
-  const taxAmount = amount * rate;
-  const total = amount + taxAmount;
+  const useGross = grossInput && form?.dataset.taxMode === "gross" && grossValue > 0;
+  const total = useGross ? grossValue : getNumber("tax-amount") * (1 + rate);
+  const amount = useGross && rate > -1 ? total / (1 + rate) : getNumber("tax-amount");
+  const taxAmount = total - amount;
 
-  updateText("tax-total", formatCurrency(total));
-  updateText("tax-amount-result", formatCurrency(taxAmount));
-  updateText("tax-total-result", formatCurrency(total));
-  updateText("tax-pre-tax", formatCurrency(amount));
+  if (grossInput && !useGross) {
+    grossInput.value = total ? total.toFixed(2) : "";
+  }
+
+  if (grossInput && useGross) {
+    const netInput = document.getElementById("tax-amount");
+    if (netInput) {
+      netInput.value = amount ? amount.toFixed(2) : "";
+    }
+  }
+
+  updateText("tax-total", formatCurrency(total, currency));
+  updateText("tax-amount-result", formatCurrency(taxAmount, currency));
+  updateText("tax-total-result", formatCurrency(total, currency));
+  updateText("tax-pre-tax", formatCurrency(amount, currency));
+
+  const label = getCalculatorLabel(document.body.dataset.calculator);
+  const insight = useGross
+    ? `The gross total contains about ${formatCurrency(taxAmount, currency)} tax, leaving ${formatCurrency(amount, currency)} before tax.`
+    : `Adding the entered tax rate gives a total of ${formatCurrency(total, currency)}.`;
+  const summary = [
+    `Margin Atlas - ${label}`,
+    `Amount before tax: ${formatCurrency(amount, currency)}`,
+    `Tax rate: ${formatPercent(rate * 100)}`,
+    `Tax amount: ${formatCurrency(taxAmount, currency)}`,
+    `Total with tax: ${formatCurrency(total, currency)}`,
+    insight,
+  ].join("\n");
+
+  setCalculatorUtility(summary, insight, "good");
 }
 
 function bindCalculator(formId, callback) {
@@ -194,11 +503,30 @@ function bindCalculator(formId, callback) {
     callback();
   });
 
-  form.querySelectorAll("input").forEach((input) => {
+  form.querySelectorAll("input, select").forEach((input) => {
     input.addEventListener("input", callback);
   });
 
   callback();
+}
+
+function setupTaxMode(callback) {
+  const form = document.querySelector(".calculator-form");
+  const netInput = document.getElementById("tax-amount");
+  const grossInput = document.getElementById("tax-gross");
+
+  if (!form || !grossInput || !netInput) {
+    return;
+  }
+
+  form.dataset.taxMode = "net";
+  netInput.addEventListener("input", () => {
+    form.dataset.taxMode = "net";
+  });
+  grossInput.addEventListener("input", () => {
+    form.dataset.taxMode = "gross";
+  });
+  document.getElementById("tax-rate")?.addEventListener("input", callback);
 }
 
 const regionContent = {
@@ -206,7 +534,7 @@ const regionContent = {
     name: "United States",
     heading: "Featured tools for United States",
     title: "Start with US pricing, salary, and seller tools",
-    copy: "Popular US calculator demand tends to cluster around seller fees, payment processing, freelance pricing, and salary comparisons.",
+    copy: "If you are pricing in the US, start with seller fees, payment processing, freelance pricing, and salary comparisons.",
     tools: [
       {
         tag: "Marketplace fees",
@@ -238,7 +566,7 @@ const regionContent = {
     name: "United Kingdom",
     heading: "Featured tools for United Kingdom",
     title: "Start with VAT, freelance, and payment tools for the UK",
-    copy: "UK visitors often compare VAT totals, freelance pricing, online payment fees, and annual-to-hourly pay conversions.",
+    copy: "If you are pricing in the UK, start with VAT totals, freelance pricing, online payment fees, and annual-to-hourly pay conversions.",
     tools: [
       {
         tag: "UK business tax",
@@ -270,7 +598,7 @@ const regionContent = {
     name: "Canada",
     heading: "Featured tools for Canada",
     title: "Start with payroll, GST/HST, and seller tools for Canada",
-    copy: "Canadian traffic often centers on GST/HST calculations, take-home comparisons, seller fees, and payment processing estimates.",
+    copy: "If you are pricing in Canada, start with GST/HST calculations, pay comparisons, seller fees, and payment processing estimates.",
     tools: [
       {
         tag: "Canadian business tax",
@@ -302,7 +630,7 @@ const regionContent = {
     name: "Australia",
     heading: "Featured tools for Australia",
     title: "Start with GST, rate planning, and business pricing for Australia",
-    copy: "Australian users frequently search for GST calculations, freelance pricing, seller fee estimates, and payment processing costs.",
+    copy: "If you are pricing in Australia, start with GST calculations, freelance pricing, seller fee estimates, and payment processing costs.",
     tools: [
       {
         tag: "Australian business tax",
@@ -334,7 +662,7 @@ const regionContent = {
     name: "New Zealand",
     heading: "Featured tools for New Zealand",
     title: "Start with GST and small business tools for New Zealand",
-    copy: "New Zealand demand often leans toward GST calculations, small business pricing, payment fees, and contractor rate planning.",
+    copy: "If you are pricing in New Zealand, start with GST calculations, small business pricing, payment fees, and contractor rate planning.",
     tools: [
       {
         tag: "New Zealand business tax",
@@ -407,6 +735,10 @@ function renderRegionTools(regionCode) {
       )
       .join("");
   }
+
+  document.querySelectorAll("[data-region-name]").forEach((node) => {
+    node.textContent = region.name;
+  });
 
   try {
     localStorage.setItem("margin-atlas-region", regionCode);
@@ -484,6 +816,44 @@ document.addEventListener("DOMContentLoaded", () => {
     type === "gst-au" ||
     type === "gst-nz"
   ) {
+    setupTaxMode(runTaxStyleCalculator);
     bindCalculator(`${type}-form`, runTaxStyleCalculator);
+  }
+
+  if (type) {
+    const resultCard = document.querySelector(".result-card");
+    const resultHeading = resultCard?.querySelector("h2");
+
+    if (resultCard && resultHeading && !resultCard.querySelector(".result-panel-head")) {
+      const head = document.createElement("div");
+      head.className = "result-panel-head";
+      head.innerHTML = `
+        <div>
+          <p class="eyebrow">Estimated result</p>
+          <p class="result-quick-note">${getCalculatorQuickNote(type)}</p>
+        </div>
+        <span class="result-chip">Live result</span>
+      `;
+      resultCard.insertBefore(head, resultHeading);
+
+      const eyebrow = resultCard.querySelector(":scope > .eyebrow");
+      if (eyebrow) {
+        eyebrow.remove();
+      }
+    }
+
+    const calculatorCallbacks = {
+      etsy: runEtsyCalculator,
+      paypal: runPayPalCalculator,
+      stripe: runStripeCalculator,
+      freelance: runFreelanceCalculator,
+      salary: runSalaryCalculator,
+      vat: runTaxStyleCalculator,
+      "gst-hst": runTaxStyleCalculator,
+      "gst-au": runTaxStyleCalculator,
+      "gst-nz": runTaxStyleCalculator,
+    };
+
+    ensureCalculatorUtility(calculatorCallbacks[type] || (() => {}));
   }
 });
