@@ -328,6 +328,10 @@ function ensureCalculatorUtility(callback) {
       <button id="reset-calculator-example" class="button button-secondary" type="button">Reset example</button>
     </div>
     <p id="calculator-copy-status" class="calculator-copy-status">Result summary ready to copy.</p>
+    <div class="calculator-help-links">
+      <a class="inline-link" href="../methodology.html">How these results are calculated</a>
+      <a class="inline-link" href="mailto:cschat2026@gmail.com?subject=Margin%20Atlas%20Feedback">Suggest an improvement</a>
+    </div>
   `;
 
   resultList.insertAdjacentElement("afterend", utility);
