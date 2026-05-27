@@ -52,106 +52,13 @@ function getCalculatorCurrency(type) {
   return currencyByCalculator[type] || "USD";
 }
 
-const ADSENSE_CLIENT = "ca-pub-2456404542897668";
-
-const AD_STACK_CONFIG = {
-  mode: "hybrid",
-  ezoic: {
-    enabled: true,
-    placeholders: {
-      home_banner: "",
-      home_sidebar: "",
-      home_mobile: "",
-      calculator_sidebar: "",
-      calculator_inline: "",
-    },
-  },
-  google: {
-    enabled: true,
-    client: ADSENSE_CLIENT,
-    slots: {
-      home_banner: "",
-      home_sidebar: "",
-      home_mobile: "",
-      calculator_sidebar: "",
-      calculator_inline: "",
-    },
-  },
-};
-
-function getAdMode() {
-  return AD_STACK_CONFIG.mode || "hybrid";
-}
-
-function getEzoicPlaceholderId(slotKey) {
-  return AD_STACK_CONFIG.ezoic.placeholders[slotKey] || "";
-}
-
-function getGoogleSlotId(slotKey) {
-  return AD_STACK_CONFIG.google.slots[slotKey] || "";
-}
-
-function hydrateAdSlots() {
-  const slots = document.querySelectorAll(".ad-slot[data-slot-key]");
-  const ezoicIds = [];
-  const googleSlots = [];
-  const mode = getAdMode();
-  const ezoicReady = AD_STACK_CONFIG.ezoic.enabled && typeof window.ezstandalone !== "undefined";
-
-  slots.forEach((slot) => {
-    const slotKey = slot.dataset.slotKey || "";
-    const ezoicId = getEzoicPlaceholderId(slotKey);
-    const googleSlot = getGoogleSlotId(slotKey);
-
-    if ((mode === "ezoic" || mode === "hybrid") && ezoicId) {
-      slot.dataset.adNetwork = "ezoic";
-      slot.innerHTML = `<div id="ezoic-pub-ad-placeholder-${ezoicId}"></div>`;
-      ezoicIds.push(Number(ezoicId));
-      return;
-    }
-
-    if ((mode === "google" || mode === "hybrid") && googleSlot) {
-      slot.dataset.adNetwork = "google";
-      slot.innerHTML = `
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="${AD_STACK_CONFIG.google.client}"
-             data-ad-slot="${googleSlot}"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-      `;
-      googleSlots.push(slot);
-    }
-  });
-
-  if (ezoicIds.length && ezoicReady) {
-    const uniqueIds = [...new Set(ezoicIds)];
-    window.ezstandalone.cmd = window.ezstandalone.cmd || [];
-    window.ezstandalone.cmd.push(() => {
-      window.ezstandalone.showAds(...uniqueIds);
-    });
-  }
-
-  if (googleSlots.length && window.adsbygoogle) {
-    googleSlots.forEach(() => {
-      try {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-      } catch (error) {
-        console.error("Failed to render Google ad slot:", error);
-      }
-    });
-  }
-}
-
 function applyDeviceMode() {
   const isMobile =
     window.matchMedia("(max-width: 768px)").matches ||
     /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
-  const hasMobileDock = Boolean(document.querySelector(".mobile-ad-inner"));
 
   document.body.classList.remove("is-mobile", "is-desktop");
   document.body.classList.add(isMobile ? "is-mobile" : "is-desktop");
-  document.body.classList.toggle("has-mobile-dock", isMobile && hasMobileDock);
 }
 
 function setCanonicalDomain() {
@@ -167,51 +74,6 @@ function setCanonicalDomain() {
     if (ogUrl) {
       ogUrl.setAttribute("content", `${liveOrigin}${window.location.pathname}`);
     }
-  }
-}
-
-function upgradeAdPlaceholders() {
-  const adSlots = document.querySelectorAll(".ad-slot");
-
-  adSlots.forEach((slot) => {
-    const label = slot.dataset.adLabel;
-    const note = slot.dataset.adNote;
-
-    if (!label && !note) {
-      return;
-    }
-
-    const title = slot.querySelector("span");
-    const helper = slot.querySelector("small");
-
-    if (title && label) {
-      title.textContent = label;
-    }
-
-    if (helper && note) {
-      helper.textContent = note;
-    }
-  });
-}
-
-function detectAdNetworkMode() {
-  const params = new URLSearchParams(window.location.search);
-  const forcedMode = params.get("adstack");
-  const validModes = new Set(["hybrid", "ezoic", "google", "placeholder"]);
-  const savedMode = window.localStorage ? localStorage.getItem("margin-atlas-adstack") : "";
-
-  if (forcedMode && validModes.has(forcedMode)) {
-    AD_STACK_CONFIG.mode = forcedMode;
-    try {
-      localStorage.setItem("margin-atlas-adstack", forcedMode);
-    } catch (error) {
-      // Ignore private mode storage failures.
-    }
-    return;
-  }
-
-  if (savedMode && validModes.has(savedMode)) {
-    AD_STACK_CONFIG.mode = savedMode;
   }
 }
 
@@ -865,11 +727,8 @@ function renderRegionTools(regionCode) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  detectAdNetworkMode();
   applyDeviceMode();
   setCanonicalDomain();
-  upgradeAdPlaceholders();
-  hydrateAdSlots();
   window.addEventListener("resize", applyDeviceMode);
 
   const type = document.body.dataset.calculator;
